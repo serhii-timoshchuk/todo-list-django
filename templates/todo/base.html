@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <title>Todo Task demo</title>
+      <style>
+        .form300width {width:100%;padding-top:20px;}
+        .form300width>p{display: block;}
+        .form300width>p>label{float: left}
+        .form300width>p>input,.form300width>p>select{float: right}
+        .form300width>p::after{content: "";display:block;clear: both}
+        button:active, button:focus {
+        outline: none !important;}
+        button::-moz-focus-inner {border: 0 !important;}
+        textarea {max-width: 100%;}
+        .tasks-wrapper{    list-style: none;  padding: 0px}
+        .singup {margin: auto;margin-top: 40px;}
+        .singup .helptext{font-size: 14px;color: #777;}
+        :focus {
+    outline-style: none;
+    outline-width: 0px !important;
+    outline-color: none !important;
+}
+      </style>
+  </head>
+  <body>
+      <div class="container py-3">
+          <header>
+            <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+              <a href="{% url 'home' %}" class="d-flex align-items-center text-dark text-decoration-none">
+                <div class="fs-2 mb-3"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-bookmark-check-fill" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zm8.854-9.646a.5.5 0 0 0-.708-.708L7.5 7.793 6.354 6.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"></path>
+                    </svg>
+                </div>
+                <span class="fs-4">Todo Tasks</span>
+              </a>
+
+              <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto ">
+               {% if user.is_authenticated %}
+                 <div class="me-3 py-2 text-dark text-decoration-none">Logged in as <strong>{{ user.username }}</strong></div>
+                <form method="POST" action="{% url 'logoutuser' %}">
+                {% csrf_token %}
+                <button type="submit" class="me-3 py-2 text-dark text-decoration-none btn btn-link nav-link">Logout</button>
+                </form>
+                <a href="{% url 'createtodos' %}" class="me-3 py-2 text-dark text-decoration-none nav-link"><span>Create Tsak</span></a>
+                <a href="{% url 'currenttodos' %}" class="me-3 py-2 text-dark text-decoration-none"><span>Current Tasks</span></a>
+                <a href="{% url 'complited' %}" class="py-2 text-dark text-decoration-none">Complited Tasks</a>
+
+                {% else %}
+                    <a href="{% url 'signupuser' %}" class="me-3 py-2 text-dark text-decoration-none">Sing Up</a>
+                    <a href="{% url 'loginuser' %}" class="py-2 text-dark text-decoration-none">Login</a>
+
+                {% endif %}
+              </nav>
+            </div>
+              <div class="p-3 pb-md-4 mx-auto text-center">
+               {% block content %}{% endblock %}
+              </div>
+          </header>
+      </div>
+  </body>
+</html>
+

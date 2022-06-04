@@ -1,0 +1,30 @@
+{% extends 'todo/base.html' %}
+{% block content %}
+    <h1 class="display-4 fw-normal">{{ todo.title}}- {{ todo.user }}</h1>
+    <h2>Change todos</h2>
+    <div style="width: 300px;margin:auto">
+        <form method="POST" class="form300width">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Change</button>
+            </div>
+        </form>
+    </div>
+    <div style="width: 300px;margin:auto">
+        <form method="POST" action="{% url 'completetodo' idx %}"  class="form300width">
+            {% csrf_token %}
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-warning">Done</button>
+            </div>
+        </form>
+    </div>
+    <div style="width: 300px;margin:auto">
+        <form method="POST" action="{% url 'deletetodo' idx %}"  class="form300width">
+            {% csrf_token %}
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

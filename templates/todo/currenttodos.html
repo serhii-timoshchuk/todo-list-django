@@ -1,0 +1,14 @@
+{% extends 'todo/base.html' %}
+{% block content %}
+    <h1 class="display-4 fw-normal">Current todos</h1>
+    <ul class="tasks-wrapper">
+    {% for todo in todos %}
+        <li class="alert {{ todo.important }}">
+            <a href="{% url 'detailtodo'  forloop.counter %}">{{ todo.title }}</a><br/>
+            {% if todo.memo %}<div class="memo">{{ todo.memo }}</div>{% endif %}
+
+        </li>
+    {% endfor %}
+    </ul>
+
+{% endblock %}

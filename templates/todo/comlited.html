@@ -1,0 +1,17 @@
+{% extends 'todo/base.html' %}
+{% block content %}
+    <h1 class="display-4 fw-normal">{% if massege %}{{ massege }}{% else %}Complited Tasks{% endif %}</h1>
+
+    <ul class="tasks-wrapper">
+        {% for todo in todos %}
+        <li class="alert alert-success"  >
+             <a href="{% url 'detailtodo' forloop.counter %}">{{ todo.title }} </a> -- {{ todo.datecomplited|date:'d.m.Y. H:i:s' }}<br/>
+            {% if todo.memo %}<div class="memo">{{ todo.memo }}</div>{% endif %}
+
+        </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
+
+
