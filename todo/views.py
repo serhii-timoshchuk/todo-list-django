@@ -1,4 +1,3 @@
-from django.db import IntegrityError
 from django.http import Http404
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -22,7 +21,7 @@ def signupuser(request):
         if form.is_valid():
             form.save()
             user = User.objects.get(username=request.POST['username'])
-            login(request, user)
+            login(user)
             return redirect('currenttodos')
         else:
             return render(request, 'todo/signupuser.html',
