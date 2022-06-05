@@ -3,7 +3,6 @@ from django.db import models
 from django.utils import timezone
 
 
-
 class Todo(models.Model):
     status_choices = [('alert-secondary', 'common'), ('alert-warning', 'important'), ('alert-danger', 'very important')]
     title = models.CharField(max_length=100)

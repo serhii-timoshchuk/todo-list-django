@@ -73,16 +73,14 @@ def create_todos(request):
 def detail_todo(request, todonumber):
     if request.method == 'GET':
         try:
-            todo = Todo.objects.filter(user=request.user)
-            todo = todo[todonumber - 1]
+            todo = Todo.objects.get(user=request.user,pk = todonumber)
         except BaseException:
             raise Http404
         else:
             form = TodoForm(instance=todo)
             return render(request, 'todo/tododetail.html', {'todo': todo, 'form': form, 'idx': todonumber})
     else:
-        todo = Todo.objects.filter(user=request.user)
-        todo = todo[todonumber - 1]
+        todo = Todo.objects.get(user=request.user, pk =todonumber)
         form = TodoForm(request.POST, instance=todo)
         form.save()
         return redirect('detailtodo', todonumber=todonumber)
@@ -92,8 +90,7 @@ def detail_todo(request, todonumber):
 def complete_todo(request, todonumber):
     if request.method == 'GET':
         raise Http404
-    todo = Todo.objects.filter(user=request.user)
-    todo = todo[todonumber - 1]
+    todo = Todo.objects.get(user=request.user,pk=todonumber)
     todo.datecomplited = timezone.now()
     todo.save()
     return redirect('currenttodos')
@@ -103,8 +100,7 @@ def complete_todo(request, todonumber):
 def delete_todo(request, todonumber):
     if request.method == 'GET':
         raise Http404
-    todo = Todo.objects.filter(user=request.user)
-    todo = todo[todonumber - 1]
+    todo = Todo.objects.get(user=request.user, pk=todonumber)
     todo.delete()
     return redirect('currenttodos')
 
