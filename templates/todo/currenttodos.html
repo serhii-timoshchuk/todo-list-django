@@ -4,7 +4,7 @@
     <ul class="tasks-wrapper">
     {% for todo in todos %}
         <li class="alert {{ todo.important }}">
-            <a href="{% url 'detailtodo'  todo.id %}">{{ todo.title }}</a><br/>
+            <a href="{% url 'detailtodo'  todo.idx %}">{{ todo.title }}</a><br/>
             {% if todo.memo %}<div class="memo">{{ todo.memo }}</div>{% endif %}
 
         </li>

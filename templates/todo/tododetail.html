@@ -12,7 +12,7 @@
         </form>
     </div>
     <div style="width: 300px;margin:auto">
-        <form method="POST" action="{% url 'completetodo' idx %}"  class="form300width">
+        <form method="POST" action="{% url 'completetodo' todo.idx %}"  class="form300width">
             {% csrf_token %}
             <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-warning">Done</button>
@@ -20,7 +20,7 @@
         </form>
     </div>
     <div style="width: 300px;margin:auto">
-        <form method="POST" action="{% url 'deletetodo' idx %}"  class="form300width">
+        <form method="POST" action="{% url 'deletetodo' todo.idx %}"  class="form300width">
             {% csrf_token %}
             <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-danger">Delete</button>

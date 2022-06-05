@@ -62,6 +62,7 @@ def create_todos(request):
         form = TodoForm(request.POST)
         newtodo = form.save(commit=False)
         newtodo.user = request.user
+        newtodo.idx = Todo.objects.filter(user=request.user).count()+1
         try:
             newtodo.save()
         except ValueError:
@@ -70,37 +71,37 @@ def create_todos(request):
 
 
 @login_required
-def detail_todo(request, todonumber):
+def detail_todo(request, idx):
     if request.method == 'GET':
         try:
-            todo = Todo.objects.get(user=request.user,pk = todonumber)
+            todo = Todo.objects.get(user=request.user,idx = idx)
         except BaseException:
             raise Http404
         else:
             form = TodoForm(instance=todo)
-            return render(request, 'todo/tododetail.html', {'todo': todo, 'form': form, 'idx': todonumber})
+            return render(request, 'todo/tododetail.html', {'todo': todo, 'form': form})
     else:
-        todo = Todo.objects.get(user=request.user, pk =todonumber)
+        todo = Todo.objects.get(user=request.user, idx =idx)
         form = TodoForm(request.POST, instance=todo)
         form.save()
-        return redirect('detailtodo', todonumber=todonumber)
+        return redirect('detailtodo', idx=idx)
 
 
 @login_required
-def complete_todo(request, todonumber):
+def complete_todo(request, idx):
     if request.method == 'GET':
         raise Http404
-    todo = Todo.objects.get(user=request.user,pk=todonumber)
+    todo = Todo.objects.get(user=request.user,idx=idx)
     todo.datecomplited = timezone.now()
     todo.save()
     return redirect('currenttodos')
 
 
 @login_required
-def delete_todo(request, todonumber):
+def delete_todo(request, idx):
     if request.method == 'GET':
         raise Http404
-    todo = Todo.objects.get(user=request.user, pk=todonumber)
+    todo = Todo.objects.get(user=request.user, idx=idx)
     todo.delete()
     return redirect('currenttodos')
 

@@ -11,6 +11,9 @@ class Todo(models.Model):
     created = models.DateTimeField(default=timezone.now, editable=True)
     datecomplited = models.DateTimeField(null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    idx = models.PositiveIntegerField(default=0,blank=False)
+
+
 
     def __str__(self):
         return self.title
