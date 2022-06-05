@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
-from .forms import TodoForm
+from .forms import TodoForm, ModifyUserCreationForm
 from .models import Todo
 
 
@@ -16,17 +16,17 @@ def home(request):
 
 def signupuser(request):
     if request.method == "GET":
-        return render(request, 'todo/signupuser.html', {'form': UserCreationForm()})
+        return render(request, 'todo/signupuser.html', {'form': ModifyUserCreationForm(auto_id='id_for_%s')})
     else:
-        form = UserCreationForm(request.POST)
+        form = ModifyUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
             user = User.objects.get(username=request.POST['username'])
             login(request, user)
-            return redirect('loginuser')
+            return redirect('currenttodos')
         else:
             return render(request, 'todo/signupuser.html',
-                          {'form': UserCreationForm(), 'error': form.error_messages,'messege':form.is_valid()})
+                          {'form': ModifyUserCreationForm(request.POST, auto_id='id_for_%s')})
 
 
 def current_todos(request):

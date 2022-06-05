@@ -1,0 +1,26 @@
+ .form300width {width:100%;padding-top:20px;}
+        .form300width>p{display: block;}
+        .form300width>p>label{float: left}
+        .form300width>p>input,.form300width>p>select{float: right}
+        .form300width>p::after{content: "";display:block;clear: both}
+        button:active, button:focus {
+        outline: none !important;}
+        button::-moz-focus-inner {border: 0 !important;}
+        textarea {max-width: 100%;}
+        .tasks-wrapper{    list-style: none;  padding: 0px}
+        .singup {margin: auto;margin-top: 40px;}
+        .singup .helptext{font-size: 14px;color: #777;}
+        :focus {
+    outline-style: none;
+    outline-width: 0px !important;
+    outline-color: none !important;
+}
+.singup-form {max-width: 300px;display: block;margin: auto}
+.form-div-label {text-align:left;font-weight: bold}
+.form-div-input input{width:100%;}
+.fieldWrapper.required .form-div-label::before{content:'*'}
+.error input {border: 1px solid red;}
+.errorlist {padding:0px;margin:0px;list-style: none;color: red;font-size: 14px;font-weight: bold;}
+.form-help-text {    color: #777;
+    font-size: 13px;}
+.form-help-text ul {padding:0px;margin:0px;list-style: none;}

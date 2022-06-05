@@ -1,13 +1,25 @@
 {% extends 'todo/base.html' %}
 {% block content %}
     <h1 class="display-4 fw-normal">Sing Up</h1>
-    <h2>{{ error }}</h2>
-    <h2>{{ messege }}</h2>
-    <form method="POST" action="">
+    <form method="POST" action="" class="singup-form">
         {% csrf_token %}
-        <table class="singup">
-            {{ form.as_table }}
-        </table>
+        {% if form.non_field_errors %}
+            {{ form.non_field_errors }}
+        {% endif %}
+        {% for formfield in form %}
+            <div class="fieldWrapper {{ formfield.name }} {{ formfield.css_classes }}">
+            <div class="form-div-label">{{ formfield.label }}</div>
+            <div class="form-div-input">{{ formfield }}</div>
+                <div style="clear:both;"></div>
+            {% if formfield.errors %}
+                {{ formfield.errors }}
+            {% endif %}
+            {% if formfield.help_text %}
+                <div class="form-help-text"><small>{{ formfield.help_text }}</small></div>
+            {% endif %}
+            </div>
+        {% endfor %}
+
         <button type="submit" class="btn btn-primary" style="margin:auto;margin-top: 20px;width:300px;">Sign up</button>
     </form>
 {% endblock %}
