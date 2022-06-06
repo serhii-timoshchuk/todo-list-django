@@ -21,7 +21,7 @@ def signupuser(request):
         if form.is_valid():
             form.save()
             user = User.objects.get(username=request.POST['username'])
-            login(user)
+            login(request, user)
             return redirect('currenttodos')
         else:
             return render(request, 'todo/signupuser.html',
